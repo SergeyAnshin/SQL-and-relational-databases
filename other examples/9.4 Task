@@ -1,0 +1,20 @@
+Какое количество землетрясений произошло в пределах 10 градусов по долготе и широте в обе стороны от точки Assam, подвергшейся в 2006 году землетрясению.
+
+select count(*) 
+from earthquake
+where latitude between 
+               (select latitude 
+               from earthquake 
+               where occurred_on >= '2006-01-01' and occurred_on < '2007-01-01' and place LIKE '%Assam%') - 10 
+               and 
+               (select latitude 
+               from earthquake 
+               where occurred_on >= '2006-01-01' and occurred_on < '2007-01-01' and place LIKE '%Assam%') + 10 
+ and longitude between 
+               (select longitude 
+               from earthquake 
+               where occurred_on >= '2006-01-01' and occurred_on < '2007-01-01' and place LIKE '%Assam%')-10 
+               and 
+               (select longitude 
+               from earthquake 
+               where occurred_on >= '2006-01-01' and occurred_on < '2007-01-01' and place LIKE '%Assam%') +10;
